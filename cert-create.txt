@@ -1,0 +1,11 @@
+﻿将aps_development.cer导出为 aps_dev_cert.pem
+openssl x509 -in aps_development.cer -inform der -out aps_dev_cert.pem -outform PEM
+
+
+在钥匙串中 导出  key.p12
+将秘钥 key.p12 导出为 aps_dev_key.pem
+openssl pkcs12 -nocerts -out aps_dev_key.pem -in  key.p12 -nodes
+
+
+去掉aps_dev_key.pem的密码
+openssl rsa -in aps_dev_key.pem -out aps_dev_key_noenc.pem

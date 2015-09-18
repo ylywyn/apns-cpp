@@ -74,11 +74,6 @@ int main(int argc, char* argv[])
 {
 #ifndef WIN32
 	//启动Linux守护进程
-	if (!is_single_proc("Pusher"))
-	{
-		printf("Pusher is runing~");
-		return 0;
-	}
 	daemonize();
 #endif  
 

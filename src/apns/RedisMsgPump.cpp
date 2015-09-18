@@ -22,17 +22,48 @@ struct IOSMessage {
 	const char* Payload;
 };
 
-void ReplyHandler(const std::vector<RedisReply*>& rs)
+void PrintReply(RedisReply* r)
 {
-	for (auto iter = rs.begin(); iter != rs.end(); ++iter)
+	if (r == NULL)
 	{
-		//PrintReply(*iter);
+		std::cout << "error " << std::endl;
+		return;
+	}
+
+	switch (r->GetReplyType())
+	{
+	case RRT_NIL:
+		std::cout << "nil: " << std::endl;
+		break;
+	case RRT_ERROR:
+		std::cout << "error: " << r->GetError() << std::endl;
+		break;
+	case RRT_INT:
+		std::cout << "int: " << r->GetInt() << std::endl;
+		break;
+	case RRT_STRING:
+		std::cout << "string: " << r->GetString() << std::endl;
+		break;
+	case RRT_BUILK:
+		std::cout << "builk: " << r->GetString() << std::endl;
+		break;
+	case RRT_ARRAY:
+	{
+		auto& v = r->GetArray();
+		if (v.size() == 3)
+		{
+			LOGFMTD("redis pump %s : %s ok!", v[0].c_str(), v[1].c_str());
+		}
+	}
+	break;
+	default:
+		break;
 	}
 }
 
 void ReplyHandler(const RedisReply* rs)
 {
-	//PrintReply((RedisReply*)rs);
+	PrintReply((RedisReply*)rs);
 }
 
 void SubscribeCb(const std::string& data)
@@ -60,7 +91,7 @@ void RedisMsgPump::subConnCallback(bool connected, const std::string &errorMessa
 			char strAppid[20];
 			sprintf(strAppid, "%d", p.AppID);
 			sub_->Subscribe(strAppid, SubscribeCb, ReplyHandler);
-			LOGFMTD("redis pump sub:%s", strAppid);
+			LOGFMTD("redis pump sub:%s ", strAppid);
 		}
 	}
 }

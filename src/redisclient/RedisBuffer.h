@@ -6,6 +6,7 @@
 #ifndef REDISCLIENT_REDISBUFFER_H
 #define REDISCLIENT_REDISBUFFER_H
 
+#include <string.h>
 #include <string>
 #include <vector>
 #include <boost/noncopyable.hpp>

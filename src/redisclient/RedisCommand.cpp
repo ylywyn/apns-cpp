@@ -15,7 +15,7 @@ static const char crlf5[] = "*5\r\n$";
 #define APPEND_CMD1(cmd, t)  \
     append(data_, crlf1, 5); \
     sprintf(t, "%d", strlen(cmd));\
-	append(data_, t);\
+	append(data_, (const char*)t);\
 	append<>(data_, crlf);\
 	append(data_, cmd); \
 	append<>(data_, crlf);
@@ -23,7 +23,7 @@ static const char crlf5[] = "*5\r\n$";
 #define APPEND_CMD2(cmd, t)  \
     append(data_, crlf2, 5); \
     sprintf(t, "%d", strlen(cmd));\
-	append(data_, t);\
+	append(data_, (const char*)t);\
 	append<>(data_, crlf);\
 	append(data_, cmd); \
 	append<>(data_, crlf);
@@ -31,7 +31,7 @@ static const char crlf5[] = "*5\r\n$";
 #define APPEND_CMD3(cmd, t)  \
     append(data_, crlf3, 5); \
     sprintf(t, "%d", strlen(cmd));\
-	append(data_, t);\
+	append(data_, (const char*)t);\
 	append<>(data_, crlf);\
 	append(data_, cmd); \
 	append<>(data_, crlf);
@@ -39,7 +39,7 @@ static const char crlf5[] = "*5\r\n$";
 #define APPEND_CMD4(cmd, t)  \
     append(data_, crlf4, 5); \
     sprintf(t, "%d", strlen(cmd));\
-	append(data_, t);\
+	append(data_, (const char*)t);\
 	append<>(data_, crlf);\
 	append(data_, cmd); \
 	append<>(data_, crlf);
@@ -47,7 +47,7 @@ static const char crlf5[] = "*5\r\n$";
 #define APPEND_CMD5(cmd, t)  \
     append(data_, crlf5, 5); \
     sprintf(t, "%d", strlen(cmd));\
-	append(data_, t);\
+	append(data_, (const char*)t);\
 	append<>(data_, crlf);\
 	append(data_, cmd); \
 	append<>(data_, crlf);
@@ -55,7 +55,7 @@ static const char crlf5[] = "*5\r\n$";
 #define  APPEND_ARG(arg, t)\
 	append(data_, '$'); \
     sprintf(t, "%d", arg.size());\
-	append(data_, t);\
+	append(data_, (const char*)t);\
 	append<>(data_, crlf);\
 	append(data_, arg.data());\
 	append<>(data_, crlf);
@@ -127,12 +127,12 @@ void RedisCommand::Build(const char* cmd, const std::vector<std::string> &args)
 
 	append(data_, '*');
 	sprintf(temp, "%d", args.size() + 1);
-	append(data_, temp);
+	append(data_, (const char*)temp);
 	append<>(data_, crlf);
 
 	append(data_, '$');
 	sprintf(temp, "%d", strlen(cmd));
-	append(data_, temp);
+	append(data_, (const char*)temp);
 	append<>(data_, crlf);
 	append(data_, cmd);
 	append<>(data_, crlf);
@@ -142,7 +142,7 @@ void RedisCommand::Build(const char* cmd, const std::vector<std::string> &args)
 	{
 		append(data_, '$');
 		sprintf(temp, "%d", it->size());
-		append(data_, temp);
+		append(data_, (const char*)temp);
 		append<>(data_, crlf);
 		append(data_, *it);
 		append<>(data_, crlf);
@@ -208,12 +208,12 @@ void RedisCommand::AppendBuild(const char* cmd, const std::vector<std::string> &
 
 	append(data_, '*');
 	sprintf(temp, "%d", args.size() + 1);
-	append(data_, temp);
+	append(data_, (const char*)temp);
 	append<>(data_, crlf);
 
 	append(data_, '$');
 	sprintf(temp, "%d", strlen(cmd));
-	append(data_, temp);
+	append(data_, (const char*)temp);
 	append<>(data_, crlf);
 	append(data_, cmd);
 	append<>(data_, crlf);
@@ -223,7 +223,7 @@ void RedisCommand::AppendBuild(const char* cmd, const std::vector<std::string> &
 	{
 		append(data_, '$');
 		sprintf(temp, "%d", it->size());
-		append(data_, temp);
+		append(data_, (const char*)temp);
 		append<>(data_, crlf);
 		append(data_, *it);
 		append<>(data_, crlf);

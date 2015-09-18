@@ -80,10 +80,6 @@ protected:
 		{
 			return true;
 		}
-
-		char temp[128];
-		sprintf(temp, "RedisClient invalid state£º%d", pimpl_->state_);
-		pimpl_->errorHandler_(temp);
 		return false;
 	}
 

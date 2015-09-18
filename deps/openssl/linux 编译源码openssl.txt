@@ -1,0 +1,54 @@
+安装环境：
+       操作系统：CentOs6.3
+
+       OpenSSL Version:openssl-1.0.0e.tar.gz
+
+       目前版本最新的SSL地址为http://www.openssl.org/source/openssl-1.0.0e.tar.gz
+
+1、将下载的压缩包放在根目录，
+
+2、在文件夹下解压缩，命令：tar -xzf openssl-openssl-1.0.0e.tar.gz，得到openssl-openssl-1.0.0e文件夹
+
+3、进入解压的目录：cd openssl-1.0.0e
+
+4、设定Openssl 安装，( --prefix )参数为欲安装之目录，也就是安装后的档案会出现在该目录下：
+执行命令： ./config --prefix=/usr/local/openssl
+
+5、执行命令./config -t
+
+6.执行make，编译Openssl
+
+这里出现的错误
+
+make[1]: gcc: Command not found
+
+上网查才发现我安装的CentOS6.3中没有GCC编译器
+
+保证系统网络畅通以后，执行命令 yum -y install gcc 安装GCC（注意，一定要忘了顺畅，不然安装不了）
+
+7、安装 Openssl:
+make install
+
+8、执行以下命令
+
+[root@localhost /]# cd /usr/local
+
+[root@localhost local]# ldd /usr/local/openssl/bin/openssl
+
+会出现类似如下信息：
+
+   
+
+9、
+
+查看路径
+
+...]# which openssl
+
+ 
+
+查看版本
+
+...]# openssl version
+
+

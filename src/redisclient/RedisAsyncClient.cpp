@@ -67,7 +67,7 @@ void RedisAsyncClient::Publish(const std::string &channel, const RedisBuffer &ms
 	else
 	{
 		std::stringstream ss;
-		ss << "RedisSubClient::command called with invalid state " << pimpl_->state_;
+		ss << "RedisAsyncClient::Publish called with invalid state " << pimpl_->state_;
 		LOGFMTW(ss.str().c_str());
 	}
 }

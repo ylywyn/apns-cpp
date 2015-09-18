@@ -21,9 +21,9 @@ Options::Options() :
 bool Options::Init()
 {
 	Config config;
-	if (!config.load("ApnsPusher.conf"))
+	if (!config.load("apns-cpp.conf"))
 	{
-		printf("can't find config file: ApnsPusher.conf");
+		printf("can't find config file: apns-cpp.conf");
 		return false;
 	}
 

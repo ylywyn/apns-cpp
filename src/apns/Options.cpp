@@ -96,6 +96,7 @@ bool Options::Init()
 		param.KeyFile = strKeyfile;
 		param.ApnsConnCount = connCount;
 		param.FeedBackTime = feedackTime;
+		param.Developer = bdev;
 
 		chanels_.push_back(param);
 	}

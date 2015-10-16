@@ -194,8 +194,16 @@ bool ApnsService::init_ssl_ctx()
 		return false;
 	}
 
-	//ssl_ctx_ = std::move(std::make_unique<boost::asio::ssl::context>(boost::asio::ssl::context::tlsv12_client));
-	ssl_ctx_.reset(new boost::asio::ssl::context(boost::asio::ssl::context::tlsv12_client));
+	//生产环境下建立连接有问题,换成 context::tlsv1_client
+	if (apns_params_.Developer)
+	{
+		ssl_ctx_.reset(new boost::asio::ssl::context(boost::asio::ssl::context::tlsv12_client));
+	}
+	else 
+	{
+		ssl_ctx_.reset(new boost::asio::ssl::context(boost::asio::ssl::context::tlsv1_client));
+	}
+	
 	ssl_ctx_->use_certificate_file(apns_params_.CertFile.c_str(), boost::asio::ssl::context_base::pem);
 	ssl_ctx_->use_rsa_private_key_file(apns_params_.KeyFile.c_str(), boost::asio::ssl::context_base::pem);
 
